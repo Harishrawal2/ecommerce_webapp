@@ -5,6 +5,8 @@ import mongoConnect from "./src/config/db.js";
 import morgan from "morgan";
 import userRoutes from "./src/routes/authRoutes.js";
 import cors from "cors";
+import categoryRoute from "./src/routes/categoryRoutes.js";
+import productRoutes from "./src/routes/productRoutes.js";
 
 // Environment variables configuration
 dotenv.config();
@@ -14,6 +16,7 @@ const app = express();
 
 // middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(cors());
 
@@ -22,6 +25,8 @@ mongoConnect();
 
 // API configuration
 app.use("/api/v1/auth", userRoutes);
+app.use("/api/v1/category", categoryRoute);
+app.use("/api/v1/products", productRoutes);
 
 const port = process.env.PORT || 4000;
 
